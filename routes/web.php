@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 //     }
 // });
 
-Route::get('/',[App\Http\Controllers\FormController::class,'index']);
+Route::get('/',[App\Http\Controllers\FormController::class,'index'])->name('add_users');
 Route::post('store', [App\Http\Controllers\FormController::class, 'store']);
-Route::get('show', [App\Http\Controllers\FormController::class, 'show']);
-Route::get('edit/{id}', [App\Http\Controllers\FormController::class, 'edit']);
-Route::post('update/{id}', [App\Http\Controllers\FormController::class, 'update']);
-Route::get('delete/{id}', [App\Http\Controllers\FormController::class, 'destroy']);
+Route::get('show', [App\Http\Controllers\FormController::class, 'show'])->name('users');
+Route::get('user/{id}', [App\Http\Controllers\FormController::class, 'user'])->name('user');
+Route::get('edit/{id}', [App\Http\Controllers\FormController::class, 'edit'])->name('edit');
+Route::post('update/{id}', [App\Http\Controllers\FormController::class, 'update'])->name('update');
+Route::get('delete/{id}', [App\Http\Controllers\FormController::class, 'destroy'])->name('delete');

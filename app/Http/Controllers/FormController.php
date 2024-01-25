@@ -6,18 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\usrers;
 class FormController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('form');
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
+        $validateData=$request->validate([
+            'name'=>'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'date' => 'required|date',
+        ]);
         $user= new usrers();
         $user->name=$request->name;
         $user->email = $request->email;
@@ -25,59 +26,59 @@ class FormController extends Controller
         $user->date = $request->date;
         $user->save();
         if($user){
-            return redirect('show')->with(['message'=>'data inserted']);
+            return redirect('show')->with(['success'=>'data inserted successfully!']);
         }else{
-            return redirect('/')->with(['message' => 'data not inserted']);
+            return redirect('/')->with(['unsuccess' => 'data not inserted']);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show()
     {
         $users= usrers::all();
-        return view('users')->with(['users'=>$users]);
+        return view('users', compact('users'));
+    }
+    public function user(string $id)
+    {
+        $users = usrers::find(base64_decode($id));
+        return view('user', compact('users'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $users = usrers::where('_id', $id)->first();
-        return view('edit')->with(['users' => $users]);
+        $users =usrers::find(base64_decode($id));
+        return view('edit', compact('users'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $user=usrers::find($id);
+        $validateData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'date' => 'required|date',
+        ]);
+
+        $user=usrers::findorfail(base64_decode($id));
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->date = $request->date;
         $user->save();
         if ($user) {
-            return redirect('show')->with(['message' => 'data updated']);
+            return redirect('show')->with(['update' => 'data updated successfully!']);
         } else {
-            return redirect('/')->with(['message' => 'data not updated']);
+            return redirect('/')->with(['unupdate' => 'data not updated']);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $user = usrers::find($id);
+        $user = usrers::find(base64_decode($id));
         $user->delete();
         if ($user) {
-            return redirect('show')->with(['message' => 'data updated']);
+            return redirect('show')->with(['delete' => 'data deleted successfully!']);
         } else {
-            return redirect('/')->with(['message' => 'data not updated']);
+            return redirect('/')->with(['undelete' => 'data not deleted']);
         }
     }
 }

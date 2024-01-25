@@ -32,11 +32,11 @@
     <div class="container">
         <div class="card p-5 mt-4">
             <h2 class="text-danger text-center">Laravel <span class="text-success">MongoDB</span></h2>
-            <form action="{{route('update',base64_encode($users->_id))}}" method="post">
+            <form action="#" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control" value="{{ $users->name }}" id="name" name="name">
+                    <input type="text" class="form-control" value="{{ $users->name }}" id="name" name="name" readonly>
                     @error('name')
                     <div class="form-text text-danger">{{ $message }}</div>
                     @enderror
@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="text" class="form-control" id="email" value="{{ $users->email }}" name="email">
+                    <input type="text" class="form-control" id="email" value="{{ $users->email }}" name="email" readonly>
                     @error('email')
                     <div class="form-text text-danger">{{ $message }}</div>
                     @enderror
@@ -52,7 +52,7 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="tel" class="form-control" id="phone" value="{{ $users->phone }}" name="phone">
+                    <input type="tel" class="form-control" id="phone" value="{{ $users->phone }}" name="phone" readonly>
                     @error('phone')
                     <div class="form-text text-danger">{{ $message }}</div>
                     @enderror
@@ -60,13 +60,13 @@
 
                 <div class="form-group">
                     <label for="date">Date:</label>
-                    <input type="date" class="form-control" id="date"  value="{{ $users->date }}"name="date">
+                    <input type="date" class="form-control" id="date" name="date" readonly>
                     @error('date')
                     <div class="form-text text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary" >Submit</button>
+                <button type="submit" class="btn btn-primary" disabled>Submit</button>
 
             </form>
         </div>
