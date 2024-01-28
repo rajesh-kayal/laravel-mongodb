@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\usrers;
-class FormController extends Controller
+use App\Models\employees;
+class AdminController extends Controller
 {
     public function index()
     {
-        return view('form');
+        return view('admin.form');
     }
 
     public function store(Request $request)
@@ -19,34 +19,34 @@ class FormController extends Controller
             'phone' => 'required|numeric',
             'date' => 'required|date',
         ]);
-        $user= new usrers();
+        $user= new employees();
         $user->name=$request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->date = $request->date;
         $user->save();
         if($user){
-            return redirect('show')->with(['success'=>'data inserted successfully!']);
+            return redirect('admin/show')->with(['success'=>'data inserted successfully!']);
         }else{
-            return redirect('/')->with(['unsuccess' => 'data not inserted']);
+            return redirect('admin/add_users')->with(['unsuccess' => 'data not inserted']);
         }
     }
 
     public function show()
     {
-        $users= usrers::all();
-        return view('users', compact('users'));
+        $users= employees::all();
+        return view('admin.users', compact('users'));
     }
     public function user(string $id)
     {
-        $users = usrers::find(base64_decode($id));
-        return view('user', compact('users'));
+        $users = employees::find(base64_decode($id));
+        return view('admin.user', compact('users'));
     }
 
     public function edit(string $id)
     {
-        $users =usrers::find(base64_decode($id));
-        return view('edit', compact('users'));
+        $users =employees::find(base64_decode($id));
+        return view('admin.edit', compact('users'));
     }
 
     public function update(Request $request, string $id)
@@ -58,27 +58,27 @@ class FormController extends Controller
             'date' => 'required|date',
         ]);
 
-        $user=usrers::findorfail(base64_decode($id));
+        $user=employees::findorfail(base64_decode($id));
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->date = $request->date;
         $user->save();
         if ($user) {
-            return redirect('show')->with(['update' => 'data updated successfully!']);
+            return redirect('admin/show')->with(['update' => 'data updated successfully!']);
         } else {
-            return redirect('/')->with(['unupdate' => 'data not updated']);
+            return redirect('admin/edit')->with(['unupdate' => 'data not updated']);
         }
     }
 
     public function destroy(string $id)
     {
-        $user = usrers::find(base64_decode($id));
+        $user = employees::find(base64_decode($id));
         $user->delete();
         if ($user) {
-            return redirect('show')->with(['delete' => 'data deleted successfully!']);
+            return redirect('admin/show')->with(['delete' => 'data deleted successfully!']);
         } else {
-            return redirect('/')->with(['undelete' => 'data not deleted']);
+            return redirect('admin/show')->with(['undelete' => 'data not deleted']);
         }
     }
 }

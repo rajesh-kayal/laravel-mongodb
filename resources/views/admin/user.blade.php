@@ -7,6 +7,7 @@
     <title>User Information Form with Bootstrap</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -17,13 +18,13 @@
                     <a class="nav-link active" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('add_users') }}">Add User</a>
+                    <a class="nav-link" href="{{ route('admin.add_users') }}">Add User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users') }}">Users</a>
+                    <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Login</a>
+                    <a class="nav-link disabled" href="{{route('admin.home')}}">Login</a>
                 </li>
             </ul>
         </div>
